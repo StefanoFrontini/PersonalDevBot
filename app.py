@@ -56,17 +56,14 @@ def close_db(error):
 
 # Homepage - Dashboard
 @app.route('/', methods=['GET', 'POST'])
-#@is_logged_in
 def index():
-
         # Check for db connection
         db = get_db()
 
         # Create cursor
         cur = db.cursor()
 
-        # Get tweets
-        
+        # Get tweets        
         result = cur.execute("SELECT author.first_name, author.last_name, tweets.tweet_phrase, tweets.tweet_date FROM author JOIN tweets ON author.author_id = tweets.author_id ORDER BY tweets.tweet_date DESC")
         tweets = cur.fetchall() # tweets is a tuple of dicts because app.config['MYSQL_CURSORCLASS'] = 'DictCursor'. Default is tuple instead of dict.
         
@@ -121,9 +118,8 @@ def login():
             error = 'Username not found'
             return render_template('login.html', error=error)
 
-
-    return render_template('login.html')
-
+    else:
+        return render_template('login.html')     
 
 # Check if user logged in
 def is_logged_in(f):
@@ -253,7 +249,6 @@ def add_phrase():
 @app.route('/tweet')
 @is_logged_in
 def tweet():
-
     # Check for db connection
     db = get_db()
         
