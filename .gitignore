@@ -1,0 +1,4 @@
+*.pyc
+secrets.py
+database.txt
+twitter.py

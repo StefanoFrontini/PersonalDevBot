@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+   <div class="jumbotron text-center">
+      <h1>Welcome To PersonalDevBot</h1>
+      <p class="lead">This application is built on the Python Flask framework</p>
+<!--      {% if session.logged_in == NULL  %}      
+      <a href="/login" class="btn btn.success btn-lg">Login</a>
+      {% endif %}
+-->
+{% if session.logged_in %}
+  <hr>
+  </div>
+  <form method="GET" action="\tweet">
+    <p><input type="submit" class="btn btn-primary" value="Tweet!"></p>
+  </form>
+  {% else %} 
+  {% endif %} 
+  <hr>
+  <table class="table table-striped">
+      <tr>
+          <th>Author</th>          
+          <th>Recent tweets</th>
+          <th>Date</th>        
+
+      </tr>
+      {% for tweet in tweets %}
+      <tr>
+          <td>{{tweet.first_name + ' ' + tweet.last_name}}</td>          
+          <td>{{tweet.tweet_phrase}}</td>
+          <td>{{tweet.tweet_date}}</td>
+      </tr>
+      {% endfor %}
+  </table>
+{% endblock %}
+
