@@ -4,7 +4,7 @@ from passlib.hash import pbkdf2_sha256
 from functools import wraps
 import tweepy
 from random import randint
-import secrets
+import secret_code
 from form_class import PhraseForm, RegisterForm
 
 app = Flask(__name__) # create the application instance
@@ -12,11 +12,11 @@ app.config.from_object(__name__) # load config from this file, app.py
 
 app.config.update(dict(
     # Secret key
-    SECRET_KEY=secrets.flask_secret_key,
+    SECRET_KEY=secret_code.flask_secret_key,
     # MySQL config
-    MYSQL_HOST=secrets.mysql_host,
-    MYSQL_USER=secrets.mysql_user,
-    MYSQL_PASSWORD=secrets.mysql_password,
+    MYSQL_HOST=secret_code.mysql_host,
+    MYSQL_USER=secret_code.mysql_user,
+    MYSQL_PASSWORD=secret_code.mysql_password,
     MYSQL_DB='personaldevbot',
     MYSQL_CURSORCLASS='DictCursor'
 ))
@@ -38,8 +38,8 @@ def init_db():
     """Inizializes the Database. Function used only for tests"""
     db = get_db()
     with app.open_resource('schema.sql', mode='r') as f:
-        query = " ".join(f.readlines())        
-        cur = db.cursor()    
+        query = " ".join(f.readlines())
+        cur = db.cursor()
         cur.execute(query)
         more = True
         while more:
@@ -63,16 +63,16 @@ def index():
         # Create cursor
         cur = db.cursor()
 
-        # Get tweets        
+        # Get tweets
         result = cur.execute("SELECT author.first_name, author.last_name, tweets.tweet_phrase, tweets.tweet_date FROM author JOIN tweets ON author.author_id = tweets.author_id ORDER BY tweets.tweet_date DESC")
         tweets = cur.fetchall() # tweets is a tuple of dicts because app.config['MYSQL_CURSORCLASS'] = 'DictCursor'. Default is tuple instead of dict.
-        
+
         # Logging result and tweets to the console
         app.logger.info(result)
         app.logger.info(tweets)
 
         if result > 0:
-            return render_template('home.html', tweets=tweets) 
+            return render_template('home.html', tweets=tweets)
 
         else:
             msg = 'No Records Found'
@@ -89,7 +89,7 @@ def login():
 
         # Check for db connection
         db = get_db()
-        
+
         # Create cursor
         cur = db.cursor()
 
@@ -101,7 +101,7 @@ def login():
             data = cur.fetchone()
             password = data['password']
 
-            # Compare Passwords 
+            # Compare Passwords
             if pbkdf2_sha256.verify(password_candidate, password):
                 # Passed
                 session['logged_in'] = True
@@ -113,13 +113,13 @@ def login():
                 error = 'Invalid login'
                 return render_template('login.html', error=error)
 
-        
+
         else:
             error = 'Username not found'
             return render_template('login.html', error=error)
 
     else:
-        return render_template('login.html')     
+        return render_template('login.html')
 
 # Check if user logged in
 def is_logged_in(f):
@@ -151,15 +151,15 @@ def register():
         register_key_candidate = form.key.data
 
         # Check register key
-        if register_key_candidate != secrets.register_key:
+        if register_key_candidate != secret_code.register_key:
             flash('Invalid Key', 'danger')
             return redirect(url_for('register'))
 
         else:
-            
+
             # Check for db connection
             db = get_db()
-        
+
             # Create cursor
             cur = db.cursor()
 
@@ -171,10 +171,10 @@ def register():
             flash('You are now registered and can login in', 'success')
 
             return redirect(url_for('index'))
-    
+
     else:
-        return render_template('register.html', form=form)     
-    
+        return render_template('register.html', form=form)
+
 
 
 
@@ -185,7 +185,7 @@ def add_phrase():
 
     # Check for db connection
     db = get_db()
-        
+
     # Create cursor
     cur = db.cursor()
 
@@ -194,11 +194,11 @@ def add_phrase():
     tweets = cur.fetchall() # tweets is a tuple of dicts because app.config['MYSQL_CURSORCLASS'] = 'DictCursor'. Default is tuple instead of dict.
     app.logger.info(result)
     app.logger.info(tweets)
-        
+
 
 
     if result == 0:
-        msg = 'No New Phrases Found'        
+        msg = 'No New Phrases Found'
 
     else:
         msg = 'Showing new phrases!'
@@ -214,28 +214,28 @@ def add_phrase():
 
         # Check for db connection
         db = get_db()
-        
+
         # Create cursor
         cur = db.cursor()
 
-        
+
         result = cur.execute("SELECT * FROM author WHERE first_name= %s AND last_name= %s", (first_name, last_name))
-        
+
         #Check weather author exists
         # if author exists then insert phrase into new_phrases table
         if result > 0:
             author = cur.fetchone()
-            cur.execute("INSERT INTO new_phrases(new_phrase, author_id) VALUES (%s, %s)", (phrase, author['author_id']))             
+            cur.execute("INSERT INTO new_phrases(new_phrase, author_id) VALUES (%s, %s)", (phrase, author['author_id']))
         # else insert first_name and last_name into author and new_phrase and author_id into new_phrases
         else:
             cur.execute("INSERT INTO author(first_name, last_name) VALUES (%s, %s)", (first_name, last_name))
             result = cur.execute("SELECT * FROM author WHERE first_name= %s AND last_name= %s", (first_name, last_name))
             author = cur.fetchone()
             cur.execute("INSERT INTO new_phrases(new_phrase, author_id) VALUES (%s, %s)", (phrase, author['author_id']))
-                              
+
         # Commit to DB
         db.commit()
-      
+
 
         flash('Phrase Created', 'success')
 
@@ -251,51 +251,51 @@ def add_phrase():
 def tweet():
     # Check for db connection
     db = get_db()
-        
+
     # Create cursor
     cur = db.cursor()
 
-    result = cur.execute("SELECT * FROM new_phrases ORDER BY new_phrase_date limit 1")    
+    result = cur.execute("SELECT * FROM new_phrases ORDER BY new_phrase_date limit 1")
 
     if result > 0:
         row = cur.fetchone()
         new_phrase = row['new_phrase']
-        cur.execute("SELECT * FROM author WHERE author_id = %s", (row['author_id'],))  
+        cur.execute("SELECT * FROM author WHERE author_id = %s", (row['author_id'],))
         author_name = cur.fetchone()
         author_first_name = author_name['first_name']
         author_last_name = author_name['last_name']
         message = f"{new_phrase}\n{author_first_name} {author_last_name}"
         cur.execute("INSERT INTO tweets(tweet_phrase, author_id) VALUES (%s, %s)", (new_phrase, author_name['author_id']))
-        # Deleting the tweet from new_phrases        
+        # Deleting the tweet from new_phrases
         cur.execute("DELETE FROM new_phrases WHERE new_phrase_id = %s", (row['new_phrase_id'],) )
 
         # Commit to DB
         db.commit()
 
-    else:        
+    else:
         result = cur.execute("SELECT * FROM tweets")
-        tweets = cur.fetchall()        
+        tweets = cur.fetchall()
         number = randint(0, result - 1)
         row = tweets[number]
-        cur.execute("SELECT * FROM author WHERE author_id = %s", (row['author_id'],))  
+        cur.execute("SELECT * FROM author WHERE author_id = %s", (row['author_id'],))
         author_name = cur.fetchone()
         author_first_name = author_name['first_name']
         author_last_name = author_name['last_name']
         message = f"{row['tweet_phrase']}\n{author_first_name} {author_last_name}"
-    
+
     # Twitter authentication
-    auth = tweepy.OAuthHandler(secrets.consumer_key, secrets.consumer_secret)
-    auth.set_access_token(secrets.access_token, secrets.access_token_secret)
+    auth = tweepy.OAuthHandler(secret_code.consumer_key, secret_code.consumer_secret)
+    auth.set_access_token(secret_code.access_token, secret_code.access_token_secret)
     api = tweepy.API(auth)
     auth.secure = True
-    # Posting Twitter message       
+    # Posting Twitter message
     api.update_status(status=message)
-    
+
     flash('Tweet sent!', 'success')
     return redirect(url_for('add_phrase'))
 
 
-if __name__ == '__main__':    
+if __name__ == '__main__':
     app.run(debug=True)
 
 
