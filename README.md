@@ -36,7 +36,7 @@ mysql_db_name = "<your mysql db name>"
 
 # Other keys
 register_key = "<this key let a user register to the site, add quotes and tweet>"
-flask_secret_key = '<youe flask secret key here>'
+flask_secret_key = "<your flask secret key here>"
 ```
 
 
