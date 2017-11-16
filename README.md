@@ -19,6 +19,7 @@ Powered by: Python, Flask and MySQL
 #### [Step1] Create a folder and git clone the repository
 `git clone https://github.com/StefanoFrontini/PersonalDevBot.git .`
 
+
 #### [Step2] In the folder you created add a secret_code.py file:
 ```python
 # Twitter credentials
@@ -38,10 +39,11 @@ register_key = "<this key let a user register to the site, add quotes and tweet>
 flask_secret_key = '<youe flask secret key here>'
 ```
 
+
 #### [Step3] 
 * Install MySQL
-* Create the DB using this sql command from the mysql command line: CREATE DATABASE <your mysql db name>;
-* Run the commands found on schema.sql from the mysql command line
+* From the mysql command line create the DB using this sql command :`CREATE DATABASE <your mysql db name>;`
+* From the mysql command line run the commands found on schema.sql 
 
 ## Usage
 * Register
