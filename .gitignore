@@ -1,4 +1,5 @@
 *.pyc
 secrets.py
+secret_code.py
 database.txt
 twitter.py
