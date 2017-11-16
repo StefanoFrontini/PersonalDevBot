@@ -17,7 +17,7 @@ app.config.update(dict(
     MYSQL_HOST=secret_code.mysql_host,
     MYSQL_USER=secret_code.mysql_user,
     MYSQL_PASSWORD=secret_code.mysql_password,
-    MYSQL_DB='personaldevbot',
+    MYSQL_DB=secret_code.mysql_db_name,
     MYSQL_CURSORCLASS='DictCursor'
 ))
 

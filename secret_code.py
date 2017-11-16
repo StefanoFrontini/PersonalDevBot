@@ -11,3 +11,4 @@ flask_secret_key = '$5$rounds=535000$.BcaNky3Hofqawf6$RizLei0PwoS1ISLhd4XJnJL9Vq
 mysql_host = 'stefanofrontini75.mysql.pythonanywhere-services.com'
 mysql_user = 'stefanofrontini7'
 mysql_password = 'Repower00_sql1'
+mysql_db_name = 'stefanofrontini7$personaldevbot'
