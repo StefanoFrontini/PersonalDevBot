@@ -1,6 +1,6 @@
 import unittest
 import app
-import secrets
+import secret_code
 
 
 class TestDevBot(unittest.TestCase):
@@ -33,7 +33,7 @@ class TestDevBot(unittest.TestCase):
         return self.app.get('/logout', follow_redirects=True)         
 
     def test_register_login_logout(self):
-        rv = self.register('Admin', 'Admin', 'Admin', secrets.register_key)
+        rv = self.register('Admin', 'Admin', 'Admin', secret_code.register_key)
         self.assertIn(b'You are now registered and can login in', rv.data)
         rv = self.login('Admin', 'Admin')
         self.assertIn(b'You are now logged in', rv.data)
@@ -48,7 +48,7 @@ class TestDevBot(unittest.TestCase):
         return self.app.post('/add_phrase', data=dict(first_name=first_name, last_name=last_name, phrase=phrase), follow_redirects=True)
     
     def test_add(self):
-        rv = self.register('Admin', 'Admin', 'Admin', secrets.register_key)
+        rv = self.register('Admin', 'Admin', 'Admin', secret_code.register_key)
         rv = self.login('Admin', 'Admin')
         self.assertIn(b'No New Phrases Found', rv.data)
         rv = self.add_new('Stefano', 'Frontini', 'Ciao!')

@@ -292,7 +292,7 @@ def tweet():
     api.update_status(status=message)
 
     flash('Tweet sent!', 'success')
-    return redirect(url_for('add_phrase'))
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
