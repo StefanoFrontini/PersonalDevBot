@@ -4,19 +4,19 @@
    <div class="jumbotron text-center">
       <h1>Welcome To PersonalDevBot!</h1>
       <p class="lead">A simple twitter bot that stores and tweets personal development quotes I like</p>
+    </div>
 <!--      {% if session.logged_in == NULL  %}      
       <a href="/login" class="btn btn.success btn-lg">Login</a>
       {% endif %}
 -->
-{% if session.logged_in %}
-  <hr>
-  </div>
+
+{% if session.logged_in %}   
   <form method="GET" action="\tweet">
     <p><input type="submit" class="btn btn-primary" value="Tweet!"></p>
   </form>
-  {% else %} 
-  {% endif %} 
-  <hr>
+  {% else %}
+
+  {% endif %}  
   <table class="table table-striped">
       <tr>
           <th>Author</th>          
