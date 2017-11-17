@@ -54,7 +54,7 @@ flask_secret_key = "<your flask secret key here>"
 
 ## Credits
 I wish to thank:
-* Zed A. Shaw, author of the book: [Learn Python The Hard Way"](https://learnpythonthehardway.org/)
+* Zed A. Shaw, author of the book: [Learn Python The Hard Way](https://learnpythonthehardway.org/)
 * Terian Koscik, author of this tutorial: [Build a Bot Workshop](https://spinecone.gitbooks.io/build-a-bot-workshop/content/)
 * Traversy Media, author of this tutorial: [Python Flask From Scratch](https://youtu.be/zRwy8gtgJ1A)
 * Derek Banas, author of this tutorial: [MySQL Tutorial](https://youtu.be/yPu6qV5byu4)
