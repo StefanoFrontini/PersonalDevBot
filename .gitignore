@@ -3,3 +3,5 @@ secrets.py
 secret_code.py
 database.txt
 twitter.py
+schedule.py
+tweet_send.sh
