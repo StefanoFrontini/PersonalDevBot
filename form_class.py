@@ -3,7 +3,7 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 # Phrase Form class
 class PhraseForm(Form):
     first_name = StringField('Author First Name', [validators.Length(min=1, max=30)])
-    last_name = StringField('Author Last Name', [validators.Length(min=1, max=30)])
+    last_name = StringField('Author Last Name', [validators.Length(min=0, max=30)])
     phrase = TextAreaField('Phrase', [validators.Length(min=1, max=280)])
 
 class RegisterForm(Form):
