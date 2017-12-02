@@ -5,3 +5,4 @@ database.txt
 twitter.py
 schedule.py
 tweet_send.sh
+launch.json
