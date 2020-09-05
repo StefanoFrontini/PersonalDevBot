@@ -4,7 +4,7 @@
 
 [Twitter Bot](https://twitter.com/PersonalDevBot)
 
-[PersonalDevBot Website](http://stefanofrontini75.pythonanywhere.com/)
+[PersonalDevBot Website](https://personal-dev-bot.herokuapp.com/)
 
 Powered by: Python, Flask and MySQL
 
