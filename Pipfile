@@ -7,6 +7,11 @@ verify_ssl = true
 
 [packages]
 gunicorn = "*"
+flask = "*"
+flask-mysqldb = "*"
+passlib = "*"
+tweepy = "*"
+wtforms = "*"
 
 [requires]
 python_version = "3.7"
