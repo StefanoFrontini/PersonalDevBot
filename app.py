@@ -12,12 +12,12 @@ app.config.from_object(__name__) # load config from this file, app.py
 
 app.config.update(dict(
     # Secret key
-    SECRET_KEY=secret_code.flask_secret_key,
+    SECRET_KEY='$5$rounds=535000$.BcaNky3Hofqawf6$RizLei0PwoS1ISLhd4XJnJL9VqB5P2e14vCoD9gHth7',
     # MySQL config
-    MYSQL_HOST=secret_code.mysql_host,
-    MYSQL_USER=secret_code.mysql_user,
-    MYSQL_PASSWORD=secret_code.mysql_password,
-    MYSQL_DB=secret_code.mysql_db_name,
+    MYSQL_HOST='eu-cdbr-west-03.cleardb.net',
+    MYSQL_USER='bac309b2497661',
+    MYSQL_PASSWORD='1660d98b',
+    MYSQL_DB='heroku_c6c6eb78adee638',
     MYSQL_CURSORCLASS='DictCursor'
 ))
 
