@@ -152,7 +152,7 @@ def register():
         register_key_candidate = form.key.data
 
         # Check register key
-        if register_key_candidate != secret_code.register_key:
+        if register_key_candidate != os.getenv("REGISTER_KEY"):
             flash('Invalid Key', 'danger')
             return redirect(url_for('register'))
 
@@ -285,8 +285,8 @@ def tweet():
         message = f"{row['tweet_phrase']}\n{author_first_name} {author_last_name}"
 
     # Twitter authentication
-    auth = tweepy.OAuthHandler(secret_code.consumer_key, secret_code.consumer_secret)
-    auth.set_access_token(secret_code.access_token, secret_code.access_token_secret)
+    auth = tweepy.OAuthHandler(os.getenv("CONSUMER_KEY"), os.getenv("CONSUMER_SECRET"))
+    auth.set_access_token(os.getenv("ACCESS_TOKEN"), os.getenv("ACCESS_TOKEN_SECRET"))
     api = tweepy.API(auth)
     auth.secure = True
     # Posting Twitter message
