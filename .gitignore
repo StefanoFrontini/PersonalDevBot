@@ -8,3 +8,4 @@ tweet_send.sh
 launch.json
 .vscode/
 schema2.sql
+.env

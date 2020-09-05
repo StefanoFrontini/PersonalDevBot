@@ -3,6 +3,7 @@ from flask_mysqldb import MySQL
 from passlib.hash import pbkdf2_sha256
 from functools import wraps
 import tweepy
+import os
 from random import randint
 # import secret_code
 from form_class import PhraseForm, RegisterForm
@@ -12,12 +13,12 @@ app.config.from_object(__name__) # load config from this file, app.py
 
 app.config.update(dict(
     # Secret key
-    SECRET_KEY='$5$rounds=535000$.BcaNky3Hofqawf6$RizLei0PwoS1ISLhd4XJnJL9VqB5P2e14vCoD9gHth7',
+    SECRET_KEY=os.getenv("SECRET_KEY"),
     # MySQL config
-    MYSQL_HOST='eu-cdbr-west-03.cleardb.net',
-    MYSQL_USER='bac309b2497661',
-    MYSQL_PASSWORD='1660d98b',
-    MYSQL_DB='heroku_c6c6eb78adee638',
+    MYSQL_HOST=os.getenv("MYSQL_HOST"),
+    MYSQL_USER=os.getenv("MYSQL_USER"),
+    MYSQL_PASSWORD=os.getenv("MYSQL_PASSWORD"),
+    MYSQL_DB=os.getenv("MYSQL_DB"),
     MYSQL_CURSORCLASS='DictCursor'
 ))
 
