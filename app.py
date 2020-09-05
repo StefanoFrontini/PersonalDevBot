@@ -4,7 +4,7 @@ from passlib.hash import pbkdf2_sha256
 from functools import wraps
 import tweepy
 from random import randint
-import secret_code
+# import secret_code
 from form_class import PhraseForm, RegisterForm
 
 app = Flask(__name__) # create the application instance
