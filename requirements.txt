@@ -1,0 +1,10 @@
+Flask==1.1.2
+Flask-MySQLdb==0.2.0
+passlib==1.7.2
+tweepy==3.9.0
+WTForms==2.3.3
+Gunicorn==20.0.4
+itsdangerous==1.1.0
+Jinja2==2.10.3
+MarkupSafe==1.1.1
+Werkzeug==0.16.0

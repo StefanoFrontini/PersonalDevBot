@@ -6,3 +6,4 @@ twitter.py
 schedule.py
 tweet_send.sh
 launch.json
+.vscode/
